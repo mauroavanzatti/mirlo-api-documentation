@@ -1,7 +1,7 @@
 # Mirlo Partner API
 
 {% hint style="info" %}
-🇺🇸 **English version available** → [View in English](https://mirlo-1.gitbook.io/mirlo-api-documentation-2)
+🇺🇸 **English version available** → [View in English](https://mirlo-1.gitbook.io/mirlo-api-documentation-en)
 {% endhint %}
 
 La API de Mirlo permite a partners integrar servicios de telefonía móvil en sus plataformas:
