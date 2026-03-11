@@ -13,26 +13,21 @@ Obtiene los planes disponibles para recargar una línea existente. Estos planes 
 ## Endpoint
 
 ```http
-GET /offers/topup-plans
+GET /offers/catalogs/all
 ```
 
 ## Parámetros de query
 
 | Parámetro | Tipo    | Requerido | Descripción |
 | --------- | ------- | --------- | ----------- |
-| `msisdn`  | string  | No        | Si se provee, filtra los planes compatibles con esa línea |
+| `type`    | string  | No        | Enviar `topups` para obtener solo planes de recarga |
 | `page`    | integer | No        | Número de página (default: `1`) |
 | `limit`   | integer | No        | Resultados por página (default: `20`, max: `100`) |
 
 ## Ejemplo
 
 ```bash
-# Todos los planes de recarga
-curl https://api.mirlo.mx/api/v1/offers/topup-plans \
-  -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
-
-# Planes compatibles con una línea específica
-curl "https://api.mirlo.mx/api/v1/offers/topup-plans?msisdn=5512345678" \
+curl "https://api.mirlo.mx/api/v1/offers/catalogs/all?type=topups" \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 
@@ -40,57 +35,72 @@ curl "https://api.mirlo.mx/api/v1/offers/topup-plans?msisdn=5512345678" \
 
 ```json
 {
-  "status": 200,
-  "data": [
+  "items": [
     {
-      "id": "topup_01HZ...",
-      "name": "Recarga 5GB — 30 días",
-      "description": "5GB adicionales con vigencia de 30 días",
-      "retail_price": 149.00,
-      "currency": "MXN",
-      "data_gb": 5,
-      "validity_days": 30,
-      "active": true
-    },
-    {
-      "id": "topup_02HZ...",
-      "name": "Recarga 10GB — 30 días",
-      "description": "10GB adicionales con vigencia de 30 días",
-      "retail_price": 249.00,
-      "currency": "MXN",
-      "data_gb": 10,
-      "validity_days": 30,
-      "active": true
-    },
-    {
-      "id": "topup_03HZ...",
-      "name": "Recarga ilimitada — 7 días",
-      "description": "Datos ilimitados por 7 días",
-      "retail_price": 99.00,
-      "currency": "MXN",
-      "data_gb": -1,
-      "validity_days": 7,
-      "active": true
+      "id": "cat_2ec0449e-74ce-416f-98eb-47d14ba6350f",
+      "name": "Recargas",
+      "type": "topups",
+      "offerings": [
+        {
+          "id": "offr_f87c8752-f422-459d-b1f0-586ad784df99",
+          "name": "Plan 6 GB 7D",
+          "price": 79,
+          "recurrence": "7",
+          "details": {
+            "mxOffer": {
+              "dataGb": 6,
+              "minutes": 500,
+              "sms": 125
+            }
+          }
+        },
+        {
+          "id": "offr_34aab0c4-fdad-4d37-8945-f51a569c90ea",
+          "name": "Plan 5 GB 15D",
+          "price": 99,
+          "recurrence": "15",
+          "details": {
+            "mxOffer": {
+              "dataGb": 5,
+              "minutes": 1000,
+              "sms": 250
+            }
+          }
+        },
+        {
+          "id": "offr_783736e0-d27e-4604-b764-f4dae7f11a54",
+          "name": "Plan 12 GB 30D",
+          "price": 349,
+          "recurrence": "30",
+          "details": {
+            "mxOffer": {
+              "dataGb": 12,
+              "minutes": 1500,
+              "sms": 500
+            }
+          }
+        }
+      ]
     }
   ],
-  "meta": {
-    "total": 8,
-    "page": 1,
-    "limit": 20
-  }
+  "count": 1,
+  "page": 1,
+  "limit": 20
 }
 ```
 
 ## Campos del plan de recarga
 
-| Campo           | Tipo    | Descripción |
-| --------------- | ------- | ----------- |
-| `id`            | string  | ID del plan — usar como `plan_id` en el endpoint de Recargas |
-| `name`          | string  | Nombre del plan |
-| `retail_price`  | number  | Precio en MXN |
-| `currency`      | string  | Siempre `MXN` |
-| `data_gb`       | number  | GB incluidos (`-1` = ilimitado) |
-| `validity_days` | number  | Días de vigencia desde la activación |
-| `active`        | boolean | `true` si el plan está disponible |
+| Campo                    | Tipo    | Descripción |
+| ------------------------ | ------- | ----------- |
+| `id`                     | string  | ID del catálogo |
+| `name`                   | string  | Nombre del catálogo |
+| `offerings[].id`         | string  | ID del plan — usar como `plan_id` en el endpoint de [Recargas](../orders/topup.md) |
+| `offerings[].name`       | string  | Nombre del plan |
+| `offerings[].price`      | number  | Precio en MXN |
+| `offerings[].recurrence` | string  | Vigencia en días desde la activación |
+| `offerings[].details.mxOffer.dataGb`   | number | GB de datos incluidos |
+| `offerings[].details.mxOffer.minutes`  | number | Minutos de voz incluidos |
+| `offerings[].details.mxOffer.sms`      | number | SMS incluidos |
 
-> El `id` de un plan de recarga es el valor que debes enviar como `plan_id` al crear una [Recarga](../orders/topup.md).
+> El `id` de un offering es el valor que debes enviar como `plan_id` al crear una [Recarga](../orders/topup.md).
