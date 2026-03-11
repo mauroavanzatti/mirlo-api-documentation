@@ -19,7 +19,7 @@ GET /lines
 ## Example
 
 ```bash
-curl "https://api.mirlo.mx/api/v1/lines?status=active&page=1&limit=50" \
+curl "{baseurl}/api/v1/lines?status=active&page=1&limit=50" \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 

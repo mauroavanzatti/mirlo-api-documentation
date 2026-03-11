@@ -10,7 +10,7 @@ purchasing lines, number portability, top-ups, and consumption queries.
 ## Base URL
 
 ```
-https://api.mirlo.mx/api/v1
+{baseurl}/api/v1
 ```
 
 ## Format
