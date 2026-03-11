@@ -1,6 +1,6 @@
-# Portabilidad
+# Number Portability
 
-Porta un número existente de otro operador a Mirlo.
+Port an existing number from another carrier to Mirlo.
 
 ## Endpoint
 
@@ -17,6 +17,7 @@ POST /orders
   "sim_type": "esim",
   "msisdn": "5512345678",
   "nip": "1234",
+  "verification_id": "ver_01HZ...",
   "customer": {
     "name": "Juan Pérez",
     "email": "juan@example.com",
@@ -32,27 +33,27 @@ POST /orders
 }
 ```
 
-## Parámetros adicionales
+## Additional parameters
 
-| Campo    | Requerido | Descripción |
-| -------- | --------- | ----------- |
-| `type`   | Sí        | Debe ser `portability` |
-| `msisdn` | Sí        | Número a portar (10 dígitos, sin código de país) |
-| `nip`    | Sí        | NIP de portabilidad de 4 dígitos — el usuario lo obtiene enviando `NIP` al `051` desde su teléfono actual |
+| Field    | Required | Description |
+| -------- | -------- | ----------- |
+| `type`   | Yes      | Must be `portability` |
+| `msisdn` | Yes      | Number to port (10 digits, no country code) |
+| `nip`    | Yes      | 4-digit portability NIP — the user obtains it by sending `NIP` to `051` from their current phone |
 
-El resto de los campos (`plan_id`, `sim_type`, `customer`, `address`) son los mismos que en [Comprar línea / SIM](new-line.md).
+All other fields (`plan_id`, `sim_type`, `verification_id`, `customer`, `address`) are the same as in [Purchase Line / SIM](new-line.md).
 
-## Estados de portabilidad
+## Portability statuses
 
-| Estado      | Descripción |
+| Status      | Description |
 | ----------- | ----------- |
-| `pending`   | Solicitud recibida |
-| `submitted` | Enviada al operador donante |
-| `scheduled` | Fecha de portabilidad confirmada |
-| `ported`    | Portabilidad completada |
-| `failed`    | Portabilidad rechazada por el operador |
+| `pending`   | Request received |
+| `submitted` | Sent to the donor carrier |
+| `scheduled` | Portability date confirmed |
+| `ported`    | Portability completed |
+| `failed`    | Rejected by the donor carrier |
 
-## Respuesta
+## Response
 
 ```json
 {

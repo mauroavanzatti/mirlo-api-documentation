@@ -1,6 +1,6 @@
-# Comprar línea / SIM
+# Purchase Line / SIM
 
-Crea una nueva línea móvil y genera una SIM (física o eSIM).
+Creates a new mobile line and generates a SIM (physical or eSIM).
 
 ## Endpoint
 
@@ -15,6 +15,7 @@ POST /orders
   "type": "new_line",
   "plan_id": "offer_01HZ...",
   "sim_type": "esim",
+  "verification_id": "ver_01HZ...",
   "customer": {
     "name": "Juan Pérez",
     "email": "juan@example.com",
@@ -31,24 +32,25 @@ POST /orders
 }
 ```
 
-## Parámetros
+## Parameters
 
-| Campo            | Requerido | Tipo   | Descripción |
-| ---------------- | --------- | ------ | ----------- |
-| `type`           | Sí        | string | Siempre `new_line` |
-| `plan_id`        | Sí        | string | ID del plan del catálogo |
-| `sim_type`       | Sí        | string | `sim` o `esim` |
-| `customer.name`  | Sí        | string | Nombre completo del usuario |
-| `customer.email` | Sí        | string | Email del usuario |
-| `customer.phone` | Sí        | string | Teléfono de contacto (10 dígitos) |
-| `customer.curp`  | Sí        | string | CURP (18 caracteres) |
-| `customer.rfc`   | No        | string | RFC del usuario |
-| `address.street` | Sí        | string | Calle y número |
-| `address.city`   | Sí        | string | Ciudad |
-| `address.state`  | Sí        | string | Estado |
-| `address.zip`    | Sí        | string | Código postal (5 dígitos) |
+| Field                | Required | Type   | Description |
+| -------------------- | -------- | ------ | ----------- |
+| `type`               | Yes      | string | Always `new_line` |
+| `plan_id`            | Yes      | string | Plan ID from the catalog |
+| `sim_type`           | Yes      | string | `sim` or `esim` |
+| `verification_id`    | Yes      | string | Identity verification ID (see [Verification Flow](../identity/verification.md)) |
+| `customer.name`      | Yes      | string | Full name as it appears on the ID document |
+| `customer.email`     | Yes      | string | Customer email |
+| `customer.phone`     | Yes      | string | Contact phone number (10 digits) |
+| `customer.curp`      | Yes      | string | CURP (18 characters) |
+| `customer.rfc`       | No       | string | RFC |
+| `address.street`     | Yes      | string | Street and number |
+| `address.city`       | Yes      | string | City |
+| `address.state`      | Yes      | string | State |
+| `address.zip`        | Yes      | string | ZIP code (5 digits) |
 
-## Respuesta
+## Response
 
 ```json
 {
@@ -68,4 +70,4 @@ POST /orders
 }
 ```
 
-> Para eSIM, muestra el `qr_url` al usuario final para que lo escanee desde **Ajustes → Móvil → Agregar plan**.
+> For eSIM, show the `qr_url` to the end user to scan from **Settings → Mobile → Add Plan**.

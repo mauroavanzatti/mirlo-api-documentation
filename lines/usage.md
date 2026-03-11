@@ -1,6 +1,6 @@
-# Consumo de la línea
+# Line Usage
 
-Consulta el consumo de datos, voz y SMS de una línea en el período activo.
+Returns the data, voice, and SMS consumption for a line in the active period.
 
 ## Endpoint
 
@@ -8,20 +8,20 @@ Consulta el consumo de datos, voz y SMS de una línea en el período activo.
 GET /line/usage/{msisdn}
 ```
 
-## Parámetros de ruta
+## Path parameters
 
-| Parámetro | Descripción |
+| Parameter | Description |
 | --------- | ----------- |
-| `msisdn`  | Número de la línea (10 dígitos, sin código de país) |
+| `msisdn`  | Line number (10 digits, no country code) |
 
-## Ejemplo
+## Example
 
 ```bash
 curl https://api.mirlo.mx/api/v1/line/usage/5512345678 \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 
-## Respuesta
+## Response
 
 ```json
 {
@@ -55,4 +55,4 @@ curl https://api.mirlo.mx/api/v1/line/usage/5512345678 \
 }
 ```
 
-> Los valores `-1` en `total` y `remaining` indican que el recurso es **ilimitado**.
+> Values of `-1` in `total` and `remaining` indicate the resource is **unlimited**.

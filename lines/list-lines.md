@@ -1,6 +1,6 @@
-# Listar líneas
+# List Lines
 
-Obtiene todas las líneas asociadas a tu cuenta de partner.
+Returns all lines associated with your partner account.
 
 ## Endpoint
 
@@ -8,22 +8,22 @@ Obtiene todas las líneas asociadas a tu cuenta de partner.
 GET /lines
 ```
 
-## Parámetros de query
+## Query parameters
 
-| Parámetro | Tipo    | Requerido | Descripción |
-| --------- | ------- | --------- | ----------- |
-| `status`  | string  | No        | Filtra por estado: `active`, `suspended`, `cancelled` |
-| `page`    | integer | No        | Número de página (default: `1`) |
-| `limit`   | integer | No        | Resultados por página (default: `20`, max: `100`) |
+| Parameter | Type    | Required | Description |
+| --------- | ------- | -------- | ----------- |
+| `status`  | string  | No       | Filter by status: `active`, `suspended`, `cancelled` |
+| `page`    | integer | No       | Page number (default: `1`) |
+| `limit`   | integer | No       | Results per page (default: `20`, max: `100`) |
 
-## Ejemplo
+## Example
 
 ```bash
 curl "https://api.mirlo.mx/api/v1/lines?status=active&page=1&limit=50" \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 
-## Respuesta
+## Response
 
 ```json
 {
@@ -34,7 +34,7 @@ curl "https://api.mirlo.mx/api/v1/lines?status=active&page=1&limit=50" \
       "status": "active",
       "plan": {
         "id": "offer_01HZ...",
-        "name": "Plan Básico 5GB",
+        "name": "Basic Plan 5GB",
         "renewal_date": "2025-02-15T00:00:00Z"
       },
       "sim_type": "esim",
@@ -46,7 +46,7 @@ curl "https://api.mirlo.mx/api/v1/lines?status=active&page=1&limit=50" \
       "status": "active",
       "plan": {
         "id": "offer_02HZ...",
-        "name": "Plan Pro 20GB",
+        "name": "Pro Plan 20GB",
         "renewal_date": "2025-02-20T00:00:00Z"
       },
       "sim_type": "sim",
@@ -58,7 +58,7 @@ curl "https://api.mirlo.mx/api/v1/lines?status=active&page=1&limit=50" \
       "status": "suspended",
       "plan": {
         "id": "offer_01HZ...",
-        "name": "Plan Básico 5GB",
+        "name": "Basic Plan 5GB",
         "renewal_date": null
       },
       "sim_type": "sim",
@@ -74,15 +74,15 @@ curl "https://api.mirlo.mx/api/v1/lines?status=active&page=1&limit=50" \
 }
 ```
 
-## Campos de la respuesta
+## Response fields
 
-| Campo              | Tipo   | Descripción |
-| ------------------ | ------ | ----------- |
-| `msisdn`           | string | Número de la línea |
-| `status`           | string | Estado actual: `active`, `suspended`, `cancelled`, `pending` |
-| `plan.id`          | string | ID del plan activo |
-| `plan.name`        | string | Nombre del plan activo |
-| `plan.renewal_date`| string | Fecha de renovación (`null` si suspendida o cancelada) |
-| `sim_type`         | string | `sim` o `esim` |
-| `iccid`            | string | Identificador de la SIM |
-| `activated_at`     | string | Fecha de activación en ISO 8601 |
+| Field               | Type   | Description |
+| ------------------- | ------ | ----------- |
+| `msisdn`            | string | Line number |
+| `status`            | string | Current status: `active`, `suspended`, `cancelled`, `pending` |
+| `plan.id`           | string | Active plan ID |
+| `plan.name`         | string | Active plan name |
+| `plan.renewal_date` | string | Renewal date (`null` if suspended or cancelled) |
+| `sim_type`          | string | `sim` or `esim` |
+| `iccid`             | string | SIM identifier |
+| `activated_at`      | string | Activation date in ISO 8601 |

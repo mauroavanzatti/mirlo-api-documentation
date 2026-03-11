@@ -1,6 +1,6 @@
-# Consultar línea
+# Get Line
 
-Obtiene el estado y datos de una línea por su MSISDN.
+Returns the status and data of a line by its MSISDN.
 
 ## Endpoint
 
@@ -8,20 +8,20 @@ Obtiene el estado y datos de una línea por su MSISDN.
 GET /line/{msisdn}
 ```
 
-## Parámetros de ruta
+## Path parameters
 
-| Parámetro | Descripción |
+| Parameter | Description |
 | --------- | ----------- |
-| `msisdn`  | Número de la línea (10 dígitos, sin código de país) |
+| `msisdn`  | Line number (10 digits, no country code) |
 
-## Ejemplo
+## Example
 
 ```bash
 curl https://api.mirlo.mx/api/v1/line/5512345678 \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 
-## Respuesta
+## Response
 
 ```json
 {
@@ -31,7 +31,7 @@ curl https://api.mirlo.mx/api/v1/line/5512345678 \
     "status": "active",
     "plan": {
       "id": "offer_01HZ...",
-      "name": "Plan Básico 5GB",
+      "name": "Basic Plan 5GB",
       "renewal_date": "2025-02-15T00:00:00Z"
     },
     "sim_type": "esim",
@@ -41,11 +41,11 @@ curl https://api.mirlo.mx/api/v1/line/5512345678 \
 }
 ```
 
-## Estados de línea
+## Line statuses
 
-| Estado      | Descripción |
+| Status      | Description |
 | ----------- | ----------- |
-| `active`    | Línea activa y en servicio |
-| `suspended` | Línea suspendida temporalmente |
-| `cancelled` | Línea cancelada |
-| `pending`   | Pendiente de activación |
+| `active`    | Line active and in service |
+| `suspended` | Temporarily suspended |
+| `cancelled` | Cancelled line |
+| `pending`   | Pending activation |

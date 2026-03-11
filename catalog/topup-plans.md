@@ -1,14 +1,14 @@
-# Planes de recarga
+# Top-up Plans
 
-Obtiene los planes disponibles para recargar una línea existente. Estos planes se usan exclusivamente en el endpoint [Recargas](../orders/topup.md).
+Returns the plans available to recharge an existing line. These plans are used exclusively in the [Top-ups](../orders/topup.md) endpoint.
 
-## Diferencia con planes principales
+## Difference from main plans
 
-| | Planes principales | Planes de recarga |
+| | Main Plans | Top-up Plans |
 |-|---|---|
-| Uso | Compra de línea nueva, portabilidad | Recargar línea activa |
-| Endpoint de compra | `POST /orders` con `type: new_line` o `type: portability` | `POST /orders` con `type: topup` |
-| Requiere datos del cliente | Sí (CURP, dirección) | No |
+| Use | New line purchase, portability | Recharge active line |
+| Purchase endpoint | `POST /orders` with `type: new_line` or `type: portability` | `POST /orders` with `type: topup` |
+| Requires customer data | Yes (CURP, address) | No |
 
 ## Endpoint
 
@@ -16,29 +16,29 @@ Obtiene los planes disponibles para recargar una línea existente. Estos planes 
 GET /offers/catalogs/all
 ```
 
-## Parámetros de query
+## Query parameters
 
-| Parámetro | Tipo    | Requerido | Descripción |
-| --------- | ------- | --------- | ----------- |
-| `type`    | string  | No        | Enviar `topups` para obtener solo planes de recarga |
-| `page`    | integer | No        | Número de página (default: `1`) |
-| `limit`   | integer | No        | Resultados por página (default: `20`, max: `100`) |
+| Parameter | Type    | Required | Description |
+| --------- | ------- | -------- | ----------- |
+| `type`    | string  | No       | Send `topups` to get only top-up plans |
+| `page`    | integer | No       | Page number (default: `1`) |
+| `limit`   | integer | No       | Results per page (default: `20`, max: `100`) |
 
-## Ejemplo
+## Example
 
 ```bash
 curl "https://api.mirlo.mx/api/v1/offers/catalogs/all?type=topups" \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 
-## Respuesta
+## Response
 
 ```json
 {
   "items": [
     {
       "id": "cat_2ec0449e-74ce-416f-98eb-47d14ba6350f",
-      "name": "Recargas",
+      "name": "Top-ups",
       "type": "topups",
       "offerings": [
         {
@@ -89,18 +89,16 @@ curl "https://api.mirlo.mx/api/v1/offers/catalogs/all?type=topups" \
 }
 ```
 
-## Campos del plan de recarga
+## Top-up plan fields
 
-| Campo                    | Tipo    | Descripción |
-| ------------------------ | ------- | ----------- |
-| `id`                     | string  | ID del catálogo |
-| `name`                   | string  | Nombre del catálogo |
-| `offerings[].id`         | string  | ID del plan — usar como `plan_id` en el endpoint de [Recargas](../orders/topup.md) |
-| `offerings[].name`       | string  | Nombre del plan |
-| `offerings[].price`      | number  | Precio en MXN |
-| `offerings[].recurrence` | string  | Vigencia en días desde la activación |
-| `offerings[].details.mxOffer.dataGb`   | number | GB de datos incluidos |
-| `offerings[].details.mxOffer.minutes`  | number | Minutos de voz incluidos |
-| `offerings[].details.mxOffer.sms`      | number | SMS incluidos |
+| Field                                  | Type   | Description |
+| -------------------------------------- | ------ | ----------- |
+| `offerings[].id`                       | string | Plan ID — use as `plan_id` in the [Top-ups](../orders/topup.md) endpoint |
+| `offerings[].name`                     | string | Plan name |
+| `offerings[].price`                    | number | Price in MXN |
+| `offerings[].recurrence`               | string | Validity in days from activation |
+| `offerings[].details.mxOffer.dataGb`   | number | Data in GB |
+| `offerings[].details.mxOffer.minutes`  | number | Voice minutes included |
+| `offerings[].details.mxOffer.sms`      | number | SMS included |
 
-> El `id` de un offering es el valor que debes enviar como `plan_id` al crear una [Recarga](../orders/topup.md).
+> The offering `id` is the value you must send as `plan_id` when creating a [Top-up](../orders/topup.md).

@@ -1,6 +1,6 @@
-# Listar planes
+# Main Plans
 
-Obtiene el catálogo de planes disponibles para compra.
+Returns the catalog of available plans for purchasing a new line or porting a number.
 
 ## Endpoint
 
@@ -8,22 +8,22 @@ Obtiene el catálogo de planes disponibles para compra.
 GET /offers/catalogs/all
 ```
 
-## Parámetros de query
+## Query parameters
 
-| Parámetro | Tipo    | Requerido | Descripción |
-| --------- | ------- | --------- | ----------- |
-| `type`    | string  | No        | Filtra por tipo: `postpaid`, `prepaid` |
-| `page`    | integer | No        | Número de página (default: `1`) |
-| `limit`   | integer | No        | Resultados por página (default: `20`, max: `100`) |
+| Parameter | Type    | Required | Description |
+| --------- | ------- | -------- | ----------- |
+| `type`    | string  | No       | Filter by type: `postpaid`, `prepaid` |
+| `page`    | integer | No       | Page number (default: `1`) |
+| `limit`   | integer | No       | Results per page (default: `20`, max: `100`) |
 
-## Ejemplo
+## Example
 
 ```bash
 curl https://api.mirlo.mx/api/v1/offers/catalogs/all \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 
-## Respuesta
+## Response
 
 ```json
 {
@@ -31,8 +31,8 @@ curl https://api.mirlo.mx/api/v1/offers/catalogs/all \
   "data": [
     {
       "id": "offer_01HZ...",
-      "name": "Plan Básico 5GB",
-      "description": "5GB de datos, llamadas ilimitadas",
+      "name": "Basic Plan 5GB",
+      "description": "5GB data, unlimited calls",
       "type": "postpaid",
       "retail_price": 299.00,
       "currency": "MXN",
@@ -51,16 +51,16 @@ curl https://api.mirlo.mx/api/v1/offers/catalogs/all \
 }
 ```
 
-## Campos del plan
+## Plan fields
 
-| Campo           | Tipo    | Descripción |
+| Field           | Type    | Description |
 | --------------- | ------- | ----------- |
-| `id`            | string  | ID único del plan |
-| `name`          | string  | Nombre del plan |
-| `retail_price`  | number  | Precio de venta en MXN |
-| `currency`      | string  | Siempre `MXN` |
-| `data_gb`       | number  | GB de datos (`-1` = ilimitado) |
-| `voice_minutes` | number  | Minutos de voz (`-1` = ilimitado) |
-| `sms`           | number  | SMS incluidos (`-1` = ilimitado) |
-| `validity_days` | number  | Vigencia en días |
-| `active`        | boolean | `true` si el plan está disponible para compra |
+| `id`            | string  | Unique plan ID |
+| `name`          | string  | Plan name |
+| `retail_price`  | number  | Sale price in MXN |
+| `currency`      | string  | Always `MXN` |
+| `data_gb`       | number  | Data in GB (`-1` = unlimited) |
+| `voice_minutes` | number  | Voice minutes (`-1` = unlimited) |
+| `sms`           | number  | SMS included (`-1` = unlimited) |
+| `validity_days` | number  | Validity in days |
+| `active`        | boolean | `true` if the plan is available for purchase |

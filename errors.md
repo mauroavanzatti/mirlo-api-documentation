@@ -1,55 +1,55 @@
-# Códigos de error
+# Error Codes
 
-Mirlo usa códigos HTTP estándar. Todos los errores incluyen un campo `message` con descripción legible y un `code` de negocio.
+Mirlo uses standard HTTP status codes. All errors include a human-readable `message` field and a business `code`.
 
-## Formato de error
+## Error format
 
 ```json
 {
   "status": 400,
-  "message": "El campo msisdn es requerido",
+  "message": "The msisdn field is required",
   "code": "VALIDATION_ERROR"
 }
 ```
 
-## Códigos HTTP
+## HTTP codes
 
-| Código | Significado |
-| ------ | ----------- |
-| `200`  | OK |
-| `201`  | Recurso creado |
-| `400`  | Petición inválida — revisa los parámetros |
-| `401`  | No autenticado — API key inválida o ausente |
-| `403`  | Sin permisos para este recurso |
-| `404`  | Recurso no encontrado |
-| `409`  | Conflicto — ej. número ya portado, CURP duplicado |
-| `422`  | Error de validación de negocio |
-| `429`  | Rate limit excedido |
-| `500`  | Error interno del servidor |
+| Code  | Meaning |
+| ----- | ------- |
+| `200` | OK |
+| `201` | Resource created |
+| `400` | Bad request — check your parameters |
+| `401` | Unauthenticated — invalid or missing API key |
+| `403` | Forbidden — no permission for this resource |
+| `404` | Resource not found |
+| `409` | Conflict — e.g. number already ported, duplicate CURP |
+| `422` | Business validation error |
+| `429` | Rate limit exceeded |
+| `500` | Internal server error |
 
-## Códigos de negocio (`code`)
+## Business codes (`code`)
 
-| Code | Descripción |
-| ---- | ----------- |
-| `VALIDATION_ERROR` | Campos requeridos faltantes o inválidos |
-| `PLAN_NOT_FOUND` | El `plan_id` no existe o no está activo |
-| `LINE_NOT_FOUND` | El `msisdn` no existe en el sistema |
-| `PORTABILITY_FAILED` | El operador donante rechazó la portabilidad |
-| `INVALID_NIP` | El NIP de portabilidad es incorrecto |
-| `DUPLICATE_CURP` | Ya existe un usuario con ese CURP |
-| `RATE_LIMIT_EXCEEDED` | Demasiadas peticiones — espera antes de reintentar |
+| Code                   | Description |
+| ---------------------- | ----------- |
+| `VALIDATION_ERROR`     | Required fields missing or invalid |
+| `PLAN_NOT_FOUND`       | The `plan_id` does not exist or is not active |
+| `LINE_NOT_FOUND`       | The `msisdn` does not exist in the system |
+| `PORTABILITY_FAILED`   | The donor carrier rejected the portability request |
+| `INVALID_NIP`          | The portability NIP is incorrect |
+| `DUPLICATE_CURP`       | A user with this CURP already exists |
+| `RATE_LIMIT_EXCEEDED`  | Too many requests — wait before retrying |
 
-## Rate Limits
+## Rate limits
 
-| Endpoint | Límite |
-| -------- | ------ |
-| `GET /lines` | 100 req/min |
-| `GET /line/*` | 200 req/min |
-| `POST /orders` | 30 req/min |
+| Endpoint       | Limit        |
+| -------------- | ------------ |
+| `GET /lines`   | 100 req/min  |
+| `GET /line/*`  | 200 req/min  |
+| `POST /orders` | 30 req/min   |
 
-## Reintentos recomendados
+## Recommended retry strategy
 
-Solo reintenta en errores `5xx` o `429`. Los errores `4xx` son definitivos y no mejorarán con reintentos.
+Only retry on `5xx` or `429` errors. `4xx` errors are definitive and will not improve with retries.
 
 ```javascript
 const MAX_RETRIES = 3;

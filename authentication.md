@@ -1,22 +1,22 @@
-# Autenticación
+# Authentication
 
-Mirlo usa **API Keys** para autenticar las peticiones. Incluye tu API key en el header de cada request.
+Mirlo uses **API Keys** to authenticate requests. Include your API key in the header of every request.
 
-## Header requerido
+## Required header
 
 ```http
-Authorization: Bearer <tu_api_key>
+Authorization: Bearer <your_api_key>
 ```
 
-## Obtener tu API Key
+## Getting your API Key
 
-Contacta a tu account manager en Mirlo para obtener tus credenciales de acceso.
+Contact your Mirlo account manager to obtain your access credentials.
 
-## Ejemplo
+## Example
 
 ```bash
 curl https://api.mirlo.mx/api/v1/lines \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 
-> **Importante:** Nunca expongas tu API key en código del lado del cliente. Todas las llamadas deben hacerse desde tu servidor.
+> **Important:** Never expose your API key in client-side code. All calls must be made from your server.

@@ -1,6 +1,6 @@
-# Recargas / Topup
+# Top-ups
 
-Recarga o cambia el plan de una línea activa.
+Recharges or changes the plan of an active line.
 
 ## Endpoint
 
@@ -14,19 +14,19 @@ POST /orders
 {
   "type": "topup",
   "msisdn": "5512345678",
-  "plan_id": "offer_01HZ..."
+  "plan_id": "offr_f87c8752-f422-459d-b1f0-586ad784df99"
 }
 ```
 
-## Parámetros
+## Parameters
 
-| Campo     | Requerido | Tipo   | Descripción |
-| --------- | --------- | ------ | ----------- |
-| `type`    | Sí        | string | Siempre `topup` |
-| `msisdn`  | Sí        | string | Número a recargar |
-| `plan_id` | Sí        | string | ID del plan a aplicar |
+| Field     | Required | Type   | Description |
+| --------- | -------- | ------ | ----------- |
+| `type`    | Yes      | string | Always `topup` |
+| `msisdn`  | Yes      | string | Line to recharge |
+| `plan_id` | Yes      | string | Top-up plan ID from [Top-up Plans](../catalog/topup-plans.md) |
 
-## Respuesta
+## Response
 
 ```json
 {
@@ -36,8 +36,8 @@ POST /orders
     "status": "completed",
     "msisdn": "5512345678",
     "plan": {
-      "id": "offer_01HZ...",
-      "name": "Plan Básico 5GB"
+      "id": "offr_f87c8752-f422-459d-b1f0-586ad784df99",
+      "name": "Plan 6 GB 7D"
     },
     "renewal_date": "2025-02-15T00:00:00Z",
     "created_at": "2025-01-15T10:30:00Z"

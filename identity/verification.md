@@ -1,23 +1,23 @@
-# Verificación de identidad
+# Identity Verification
 
-Antes de activar una línea, el usuario final debe pasar por un proceso de verificación de identidad (KYC). Este flujo asegura el cumplimiento con la regulación de la PROFECO y el IFT para registro de SIMs en México.
+Before activating a line, the end user must complete an identity verification (KYC) process. This ensures compliance with PROFECO and IFT regulations for SIM registration in Mexico.
 
-## Flujo completo
+## Full flow
 
 ```
-1. Partner envía datos del usuario → POST /identity/verifications
-2. Mirlo retorna un verification_id y estado "pending"
-3. Partner sube los documentos del usuario → POST /identity/verifications/{id}/documents
-4. Mirlo procesa la verificación (segundos a minutos)
-5. Partner consulta el resultado → GET /identity/verifications/{id}
-6. Estado "approved" → puede proceder a crear la orden
+1. Partner submits user data       → POST /identity/verifications
+2. Mirlo returns a verification_id   and status "pending"
+3. Partner uploads user documents  → POST /identity/verifications/{id}/documents
+4. Mirlo processes the verification  (seconds to minutes)
+5. Partner checks the result       → GET /identity/verifications/{id}
+6. Status "approved"               → proceed to create the order
 ```
 
 ---
 
-## 1. Crear verificación
+## 1. Create verification
 
-Inicia el proceso de verificación de identidad para un usuario.
+Starts the identity verification process for a user.
 
 ### Endpoint
 
@@ -52,41 +52,41 @@ POST /identity/verifications
 }
 ```
 
-### Parámetros
+### Parameters
 
 **customer**
 
-| Campo        | Requerido | Descripción |
-| ------------ | --------- | ----------- |
-| `name`       | Sí        | Nombre completo tal como aparece en el documento de identidad |
-| `curp`       | Sí        | CURP de 18 caracteres |
-| `birth_date` | Sí        | Fecha de nacimiento en formato `YYYY-MM-DD` |
-| `email`      | Sí        | Correo electrónico del usuario |
-| `phone`      | Sí        | Teléfono de contacto (10 dígitos) |
+| Field        | Required | Description |
+| ------------ | -------- | ----------- |
+| `name`       | Yes      | Full name as it appears on the identity document |
+| `curp`       | Yes      | 18-character CURP |
+| `birth_date` | Yes      | Date of birth in `YYYY-MM-DD` format |
+| `email`      | Yes      | User email address |
+| `phone`      | Yes      | Contact phone number (10 digits) |
 
 **address**
 
-| Campo          | Requerido | Descripción |
-| -------------- | --------- | ----------- |
-| `street`       | Sí        | Calle, número exterior e interior |
-| `neighborhood` | No        | Colonia |
-| `city`         | Sí        | Ciudad o municipio |
-| `state`        | Sí        | Estado de la república |
-| `zip`          | Sí        | Código postal (5 dígitos) |
+| Field          | Required | Description |
+| -------------- | -------- | ----------- |
+| `street`       | Yes      | Street name, exterior and interior number |
+| `neighborhood` | No       | Neighborhood (colonia) |
+| `city`         | Yes      | City or municipality |
+| `state`        | Yes      | State |
+| `zip`          | Yes      | ZIP code (5 digits) |
 
 **document**
 
-| Campo         | Requerido | Descripción |
-| ------------- | --------- | ----------- |
-| `type`        | Sí        | Tipo de documento: `ine`, `pasaporte`, `cedula_profesional` |
-| `front_image` | Sí        | Imagen frontal del documento en **base64** (JPEG o PNG, max 5MB) |
-| `back_image`  | No        | Imagen trasera — requerida para `ine`, opcional para `pasaporte` |
+| Field         | Required | Description |
+| ------------- | -------- | ----------- |
+| `type`        | Yes      | Document type: `ine`, `pasaporte`, `cedula_profesional` |
+| `front_image` | Yes      | Front of document in **base64** (JPEG or PNG, max 5MB) |
+| `back_image`  | No       | Back of document — required for `ine`, optional for `pasaporte` |
 
 **selfie_image**
 
-Foto del rostro del usuario en **base64** (JPEG o PNG, max 5MB). Se compara biométricamente contra la foto del documento.
+Photo of the user's face in **base64** (JPEG or PNG, max 5MB). Biometrically compared against the document photo.
 
-### Respuesta
+### Response
 
 ```json
 {
@@ -102,9 +102,9 @@ Foto del rostro del usuario en **base64** (JPEG o PNG, max 5MB). Se compara biom
 
 ---
 
-## 2. Consultar estado
+## 2. Check status
 
-Obtiene el resultado de una verificación de identidad.
+Returns the result of an identity verification.
 
 ### Endpoint
 
@@ -112,14 +112,14 @@ Obtiene el resultado de una verificación de identidad.
 GET /identity/verifications/{verification_id}
 ```
 
-### Ejemplo
+### Example
 
 ```bash
 curl https://api.mirlo.mx/api/v1/identity/verifications/ver_01HZ... \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 
-### Respuesta — aprobada
+### Response — approved
 
 ```json
 {
@@ -137,7 +137,7 @@ curl https://api.mirlo.mx/api/v1/identity/verifications/ver_01HZ... \
 }
 ```
 
-### Respuesta — rechazada
+### Response — rejected
 
 ```json
 {
@@ -154,32 +154,32 @@ curl https://api.mirlo.mx/api/v1/identity/verifications/ver_01HZ... \
 }
 ```
 
-### Estados de verificación
+### Verification statuses
 
-| Estado                  | Descripción |
+| Status                  | Description |
 | ----------------------- | ----------- |
-| `pending`               | En proceso — espera unos segundos y vuelve a consultar |
-| `approved`              | Identidad verificada — puedes proceder a crear la orden |
-| `rejected`              | Verificación rechazada — ver `rejection_reasons` |
-| `requires_resubmission` | Algunos datos deben corregirse — el usuario debe reiniciar el flujo |
-| `expired`               | La verificación no fue completada antes de `expires_at` |
+| `pending`               | Processing — wait a few seconds and check again |
+| `approved`              | Identity verified — you can proceed to create the order |
+| `rejected`              | Verification failed — see `rejection_reasons` |
+| `requires_resubmission` | Some data must be corrected — the user must restart the flow |
+| `expired`               | Verification was not completed before `expires_at` |
 
-### Razones de rechazo (`rejection_reasons`)
+### Rejection reasons (`rejection_reasons`)
 
-| Código                  | Descripción |
-| ----------------------- | ----------- |
-| `document_unreadable`   | El documento no es legible (borroso, cortado, con flash) |
-| `document_expired`      | El documento de identidad está vencido |
-| `document_mismatch`     | El nombre en el documento no coincide con el CURP |
-| `selfie_mismatch`       | La selfie no coincide con la foto del documento |
-| `curp_invalid`          | El CURP no existe o no es válido en el RENAPO |
-| `duplicate_identity`    | Ya existe una línea registrada con este CURP |
+| Code                  | Description |
+| --------------------- | ----------- |
+| `document_unreadable` | Document is not legible (blurry, cropped, flash glare) |
+| `document_expired`    | Identity document is expired |
+| `document_mismatch`   | Name on document does not match the CURP |
+| `selfie_mismatch`     | Selfie does not match the document photo |
+| `curp_invalid`        | CURP does not exist or is invalid in RENAPO |
+| `duplicate_identity`  | A line already exists registered with this CURP |
 
 ---
 
-## Usar la verificación al crear una orden
+## Using the verification when creating an order
 
-Una vez aprobada, incluye el `verification_id` al crear la orden:
+Once approved, include the `verification_id` when creating the order:
 
 ```json
 {
@@ -202,4 +202,4 @@ Una vez aprobada, incluye el `verification_id` al crear la orden:
 }
 ```
 
-> Las verificaciones tienen una vigencia de **7 días**. Si el usuario no completa la compra en ese plazo, deberá iniciar una nueva verificación.
+> Verifications are valid for **7 days**. If the user does not complete the purchase within that period, a new verification must be initiated.
