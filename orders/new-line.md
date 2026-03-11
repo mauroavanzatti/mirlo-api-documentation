@@ -15,6 +15,7 @@ POST /orders
   "type": "new_line",
   "plan_id": "offer_01HZ...",
   "sim_type": "esim",
+  "verification_id": "ver_01HZ...",
   "customer": {
     "name": "Juan Pérez",
     "email": "juan@example.com",
@@ -33,20 +34,21 @@ POST /orders
 
 ## Parámetros
 
-| Campo            | Requerido | Tipo   | Descripción |
-| ---------------- | --------- | ------ | ----------- |
-| `type`           | Sí        | string | Siempre `new_line` |
-| `plan_id`        | Sí        | string | ID del plan del catálogo |
-| `sim_type`       | Sí        | string | `sim` o `esim` |
-| `customer.name`  | Sí        | string | Nombre completo del usuario |
-| `customer.email` | Sí        | string | Email del usuario |
-| `customer.phone` | Sí        | string | Teléfono de contacto (10 dígitos) |
-| `customer.curp`  | Sí        | string | CURP (18 caracteres) |
-| `customer.rfc`   | No        | string | RFC del usuario |
-| `address.street` | Sí        | string | Calle y número |
-| `address.city`   | Sí        | string | Ciudad |
-| `address.state`  | Sí        | string | Estado |
-| `address.zip`    | Sí        | string | Código postal (5 dígitos) |
+| Campo              | Requerido | Tipo   | Descripción |
+| ------------------ | --------- | ------ | ----------- |
+| `type`             | Sí        | string | Siempre `new_line` |
+| `plan_id`          | Sí        | string | ID del plan del catálogo |
+| `sim_type`         | Sí        | string | `sim` o `esim` |
+| `verification_id`  | No        | string | ID de la verificación de identidad del usuario. Ver [Verificación de identidad](../identity/verification.md) |
+| `customer.name`    | Sí        | string | Nombre completo del usuario |
+| `customer.email`   | Sí        | string | Email del usuario |
+| `customer.phone`   | Sí        | string | Teléfono de contacto (10 dígitos) |
+| `customer.curp`    | Sí        | string | CURP (18 caracteres) |
+| `customer.rfc`     | No        | string | RFC del usuario |
+| `address.street`   | Sí        | string | Calle y número |
+| `address.city`     | Sí        | string | Ciudad |
+| `address.state`    | Sí        | string | Estado |
+| `address.zip`      | Sí        | string | Código postal (5 dígitos) |
 
 ## Respuesta
 
