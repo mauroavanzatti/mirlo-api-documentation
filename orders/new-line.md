@@ -34,21 +34,21 @@ POST /orders
 
 ## Parameters
 
-| Field                | Required | Type   | Description |
-| -------------------- | -------- | ------ | ----------- |
-| `type`               | Yes      | string | Always `new_line` |
-| `plan_id`            | Yes      | string | Plan ID from the catalog |
-| `sim_type`           | Yes      | string | `sim` or `esim` |
-| `verification_id`    | Yes      | string | Identity verification ID (see [Verification Flow](../identity/verification.md)) |
-| `customer.name`      | Yes      | string | Full name as it appears on the ID document |
-| `customer.email`     | Yes      | string | Customer email |
-| `customer.phone`     | Yes      | string | Contact phone number (10 digits) |
-| `customer.curp`      | Yes      | string | CURP (18 characters) |
-| `customer.rfc`       | No       | string | RFC |
-| `address.street`     | Yes      | string | Street and number |
-| `address.city`       | Yes      | string | City |
-| `address.state`      | Yes      | string | State |
-| `address.zip`        | Yes      | string | ZIP code (5 digits) |
+| Field              | Required | Type   | Description |
+| ------------------ | -------- | ------ | ----------- |
+| `type`             | Yes      | string | Always `new_line` |
+| `plan_id`          | Yes      | string | Plan ID from the catalog |
+| `sim_type`         | Yes      | string | `sim` or `esim` |
+| `verification_id`  | No       | string | User identity verification ID. See [Identity Verification](../identity/verification.md) |
+| `customer.name`    | Yes      | string | Full name as it appears on the ID document |
+| `customer.email`   | Yes      | string | Customer email |
+| `customer.phone`   | Yes      | string | Contact phone number (10 digits) |
+| `customer.curp`    | Yes      | string | CURP (18 characters) |
+| `customer.rfc`     | No       | string | RFC |
+| `address.street`   | Yes      | string | Street and number |
+| `address.city`     | Yes      | string | City |
+| `address.state`    | Yes      | string | State |
+| `address.zip`      | Yes      | string | ZIP code (5 digits) |
 
 ## Response
 
