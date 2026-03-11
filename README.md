@@ -10,7 +10,7 @@ compra de líneas, portabilidad, recargas y consulta de consumo.
 ## Base URL
 
 ```
-https://api.mirlo.mx/api/v1
+{baseurl}/api/v1
 ```
 
 ## Formato

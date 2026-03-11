@@ -27,7 +27,7 @@ GET /offers/catalogs/all
 ## Ejemplo
 
 ```bash
-curl "https://api.mirlo.mx/api/v1/offers/catalogs/all?type=topups" \
+curl "{baseurl}/api/v1/offers/catalogs/all?type=topups" \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 

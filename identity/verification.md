@@ -115,7 +115,7 @@ GET /identity/verifications/{verification_id}
 ### Ejemplo
 
 ```bash
-curl https://api.mirlo.mx/api/v1/identity/verifications/ver_01HZ... \
+curl {baseurl}/api/v1/identity/verifications/ver_01HZ... \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 

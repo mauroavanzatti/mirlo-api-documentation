@@ -17,7 +17,7 @@ GET /line/{msisdn}
 ## Ejemplo
 
 ```bash
-curl https://api.mirlo.mx/api/v1/line/5512345678 \
+curl {baseurl}/api/v1/line/5512345678 \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 

@@ -15,7 +15,7 @@ Contacta a tu account manager en Mirlo para obtener tus credenciales de acceso.
 ## Ejemplo
 
 ```bash
-curl https://api.mirlo.mx/api/v1/lines \
+curl {baseurl}/api/v1/lines \
   -H "Authorization: Bearer sk_live_xxxxxxxxxxxx"
 ```
 
