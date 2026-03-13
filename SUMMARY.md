@@ -13,6 +13,11 @@
   * [Consultar línea](lines/get-line.md)
   * [Listar líneas](lines/list-lines.md)
   * [Consumo](lines/usage.md)
+* eSIM de datos
+  * [Listar paquetes](esim-datos/list-packages.md)
+  * [Comprar eSIM](esim-datos/purchase.md)
+  * [Historial de compras](esim-datos/list-purchases.md)
+  * [Detalle y consumo](esim-datos/detail-and-usage.md)
 * Verificación de identidad
   * [Flujo de verificación](identity/verification.md)
 * [Códigos de error](errors.md)
