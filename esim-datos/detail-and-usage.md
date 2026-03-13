@@ -119,19 +119,33 @@ curl {baseurl}/api/v1/travel_esim/sims/8952140061234567890/usage \
 {
   "status": 200,
   "data": {
-    "data": {
-      "remaining": 524288000,
-      "total": 1073741824,
-      "expired_at": "2025-01-22T12:00:00Z",
-      "is_unlimited": false,
-      "status": "ACTIVE",
-      "remaining_voice": null,
-      "remaining_text": null,
-      "total_voice": null,
-      "total_text": null
-    },
-    "meta": {
-      "message": "success"
+    "iccid": "8937103400004910314",
+    "provider": "BONDIO",
+    "data_used_bytes": 0,
+    "data_total_bytes": 1073741824,
+    "data_remaining_bytes": 1073741824,
+    "usage_percentage": 0,
+    "status": "pending_activation",
+    "last_updated": "1970-01-01T00:00:00.000Z",
+    "provider_metadata": {
+      "attachmentId": "platt_xghvswcv",
+      "state": "PENDING_FOR_FIRST_USE",
+      "activationAt": null,
+      "expirationAt": null,
+      "plan": {
+        "name": "Costco Europa 1GB 7d",
+        "coverageProfileId": "cvpr_00357sly",
+        "periodDays": 7,
+        "dataMegaBytes": 1024,
+        "label": "lambda",
+        "periodIterations": 1,
+        "throttledSpeedKbps": 0
+      },
+      "usedAllowance": {
+        "dataBytes": 0,
+        "smsMessages": null,
+        "voiceSeconds": null
+      }
     }
   }
 }
@@ -139,16 +153,23 @@ curl {baseurl}/api/v1/travel_esim/sims/8952140061234567890/usage \
 
 ### Campos de la respuesta
 
-| Campo             | Tipo    | Descripción |
-| ----------------- | ------- | ----------- |
-| `remaining`       | integer | Bytes de datos restantes |
-| `total`           | integer | Bytes de datos totales del paquete |
-| `expired_at`      | string  | Fecha de vencimiento del paquete (ISO 8601) |
-| `is_unlimited`    | boolean | `true` si los datos son ilimitados |
-| `status`          | string  | Estado de la eSIM: `ACTIVE`, `NOT_ACTIVATED`, `EXPIRED`, `DEPLETED` |
-| `remaining_voice` | integer | Segundos de voz restantes (`null` si no aplica) |
-| `remaining_text`  | integer | SMS restantes (`null` si no aplica) |
-| `total_voice`     | integer | Segundos de voz totales (`null` si no aplica) |
-| `total_text`      | integer | SMS totales (`null` si no aplica) |
+| Campo                  | Tipo    | Descripción |
+| ---------------------- | ------- | ----------- |
+| `iccid`                | string  | ICCID de la eSIM |
+| `provider`             | string  | Proveedor: `AIRALO` o `BONDIO` |
+| `data_used_bytes`      | integer | Datos consumidos en bytes |
+| `data_total_bytes`     | integer | Datos totales del paquete en bytes |
+| `data_remaining_bytes` | integer | Datos restantes en bytes |
+| `usage_percentage`     | number  | Porcentaje de datos consumidos (0–100) |
+| `status`               | string  | Estado de la eSIM: `pending_activation`, `active`, `expired`, `depleted` |
+| `last_updated`         | string  | Última actualización de datos por el proveedor (ISO 8601) |
+| `provider_metadata`    | object  | Datos crudos del proveedor (varía según proveedor) |
+| `provider_metadata.state` | string | Estado interno del proveedor (ej. `PENDING_FOR_FIRST_USE`) |
+| `provider_metadata.activationAt` | string | Fecha de activación (`null` si aún no se activó) |
+| `provider_metadata.expirationAt` | string | Fecha de vencimiento (`null` si aún no se activó) |
+| `provider_metadata.plan` | object | Detalle del plan a nivel proveedor |
+| `provider_metadata.plan.periodDays` | integer | Vigencia del plan en días |
+| `provider_metadata.plan.dataMegaBytes` | integer | Datos totales del plan en MB |
+| `provider_metadata.usedAllowance.dataBytes` | integer | Bytes consumidos según el proveedor |
 
-> Los valores en `remaining` y `total` están en **bytes**. Para convertir a MB: `bytes / 1_048_576`.
+> `data_used_bytes`, `data_total_bytes` y `data_remaining_bytes` están en **bytes**. Para convertir a MB: `bytes / 1_048_576`.
