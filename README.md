@@ -4,8 +4,7 @@
 🇲🇽 **Versión en español disponible** → [Ver en español](https://mirlo-1.gitbook.io/mirlo-api-documentation-es)
 {% endhint %}
 
-The Mirlo API allows partners to integrate mobile telephony services into their platforms:
-purchasing lines, number portability, top-ups, and consumption queries.
+The Mirlo API allows partners to integrate mobile connectivity into their platforms, including purchasing lines, managing number portability, performing top-ups, querying usage, and provisioning data eSIMs.
 
 ## Base URL
 
