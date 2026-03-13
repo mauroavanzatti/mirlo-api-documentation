@@ -62,6 +62,16 @@ curl "{baseurl}/api/v1/travel_esim/packages?filter[type]=global&limit=20" \
                 "mirlo_price": 140.0,
                 "is_unlimited": false,
                 "net_price": null
+              },
+              {
+                "id": "spain-30days-3gb",
+                "type": "local",
+                "data": "3 GB",
+                "validity": 30,
+                "price": 16.0,
+                "mirlo_price": 320.0,
+                "is_unlimited": false,
+                "net_price": null
               }
             ]
           }
